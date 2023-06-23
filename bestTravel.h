@@ -18,5 +18,5 @@ typedef struct recursionData {
 int chooseBestSum(int distanceLimit, int maxTownsToVisit, int townDistances[], int townDistancesSize);
 void initInputData(int distanceLimit, int maxTownsToVisit, int townDistances[], int townDistancesSize, travelData *input);
 void initRecursionData(int maxTownsToVisit, recursionData *recData);
-void createPermutations(travelData *input, recursionData *recData, int depth, int offset);
+void findBestSum(travelData *input, recursionData *recData, int depth, int offset);
 void updateBestSum(travelData *input, recursionData *recData);
