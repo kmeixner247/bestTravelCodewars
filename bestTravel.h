@@ -3,20 +3,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct travelData {
+typedef struct {
     int distanceLimit;
     int maxTownsToVisit;
     int *townDistances;
     int townDistancesSize;
-} travelData;
+} TravelData;
 
-typedef struct recursionData {
+typedef struct {
     int *permutation;
     int bestSum;
-} recursionData;
+} RecursionData;
 
 int chooseBestSum(int distanceLimit, int maxTownsToVisit, int townDistances[], int townDistancesSize);
-void initInputData(int distanceLimit, int maxTownsToVisit, int townDistances[], int townDistancesSize, travelData *input);
-void initRecursionData(int maxTownsToVisit, recursionData *recData);
-void findBestSum(travelData *input, recursionData *recData, int depth, int offset);
-void updateBestSum(travelData *input, recursionData *recData);
+void initInputData(int distanceLimit, int maxTownsToVisit, int townDistances[], int townDistancesSize, TravelData *input);
+void initRecursionData(int maxTownsToVisit, RecursionData *recursionData);
+void findBestSum(TravelData *input, RecursionData *recursionData, int depth, int offset);
+void updateBestSum(TravelData *input, RecursionData *recursionData);

@@ -1,47 +1,47 @@
 #include "bestTravel.h"
 
 int chooseBestSum(int distanceLimit, int maxTownsToVisit, int townDistances[], int townDistancesSize) {
-    travelData input;
-    initInputData(distanceLimit, maxTownsToVisit, townDistances, townDistancesSize, &input);
+    TravelData input;
+    initializeInputData(distanceLimit, maxTownsToVisit, townDistances, townDistancesSize, &input);
 
-    recursionData recData;
-    initRecursionData(maxTownsToVisit, &recData);
+    RecursionData recursionData;
+    initializeRecursionData(maxTownsToVisit, &recursionData);
 
-    findBestSum(&input, &recData, 0, 0);
-    free(recData.permutation);
-    return (recData.bestSum);
+    findBestSum(&input, &recursionData, 0, 0);
+    free(recursionData.permutation);
+    return (recursionData.bestSum);
 }
 
-void initInputData(int distanceLimit, int maxTownsToVisit, int townDistances[], int townDistancesSize, travelData *input) {
+void initializeInputData(int distanceLimit, int maxTownsToVisit, int townDistances[], int townDistancesSize, TravelData *input) {
     input->distanceLimit = distanceLimit;
     input->maxTownsToVisit = maxTownsToVisit;
     input->townDistances = townDistances;
     input->townDistancesSize = townDistancesSize;
 }
 
-void initRecursionData(int maxTownsToVisit, recursionData *recData) {
-    recData->permutation = calloc(maxTownsToVisit, sizeof(int));
-    recData->bestSum = -1;
+void initializeRecursionData(int maxTownsToVisit, RecursionData *recursionData) {
+    recursionData->permutation = calloc(maxTownsToVisit, sizeof(int));
+    recursionData->bestSum = -1;
 }
 
-void findBestSum(travelData *input, recursionData *recData, int permutationIndex, int offset) {
+void findBestSum(TravelData *input, RecursionData *recursionData, int permutationIndex, int offset) {
     if (permutationIndex == input->maxTownsToVisit) {
-        updateBestSum(input, recData);
+        updateBestSum(input, recursionData);
         return ;
     }
     for (int distanceIndex = offset; distanceIndex < input->townDistancesSize; distanceIndex++) {
-        recData->permutation[permutationIndex] = input->townDistances[distanceIndex];
-        findBestSum(input, recData, permutationIndex + 1, distanceIndex + 1);
+        recursionData->permutation[permutationIndex] = input->townDistances[distanceIndex];
+        findBestSum(input, recursionData, permutationIndex + 1, distanceIndex + 1);
     }
 }
 
-void updateBestSum(travelData *input, recursionData *recData) {
+void updateBestSum(TravelData *input, RecursionData *recursionData) {
     int sum = 0;
     for (int permutationIndex = 0; permutationIndex < input->maxTownsToVisit; permutationIndex++) {
-        sum += recData->permutation[permutationIndex];
+        sum += recursionData->permutation[permutationIndex];
     }
-    if (sum > recData->bestSum && sum <= input->distanceLimit) {
-        recData->bestSum = sum;
+    if (sum > recursionData->bestSum && sum <= input->distanceLimit) {
+        recursionData->bestSum = sum;
     }
 }
 
